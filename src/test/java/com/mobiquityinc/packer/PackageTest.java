@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 /**
  * PackageTest
  */
-public class PackageTest {
+class PackageTest {
 
     @Test
-    public void shoudNotIncludeThingsWithWeightAboveMaximum() {
+    void shouldNotIncludeThingsWithWeightAboveMaximum() {
         final Package p = new Package(8.0f);
         p.putThing(new Thing(1, 15.3f, new BigDecimal("34.00")));
 
@@ -24,7 +24,7 @@ public class PackageTest {
     }
 
     @Test
-    public void shoudNotIncludeMoreThingsIfAccumulatedWeightExceededMaximum() {
+    void shouldNotIncludeMoreThingsIfAccumulatedWeightExceededMaximum() {
         final Package p = new Package(81.0f);
         p.putThing(new Thing(1,53.38f,new BigDecimal("45"))); // 53.38 
         p.putThing(new Thing(2,88.62f,new BigDecimal("98"))); // exceeds
@@ -39,7 +39,7 @@ public class PackageTest {
     }
 
     @Test
-    public void shouldOverrideToStringToPrintCommaSeparatedListOfThingsIndexes() {
+    void shouldOverrideToStringToPrintCommaSeparatedListOfThingsIndexes() {
         final Package p = new Package(10f);
         p.putThing(new Thing(1, 2f, new BigDecimal("10")));
         p.putThing(new Thing(2, 5f, new BigDecimal("10")));

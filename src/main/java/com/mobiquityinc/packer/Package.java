@@ -13,7 +13,7 @@ public class Package {
     private final float maximumWeight;
     private float currentWeight = 0;
 
-    private List<Thing> things = new ArrayList<>();
+    private final List<Thing> things = new ArrayList<>();
 
     public Package(float maximumWeight) {
         this.maximumWeight = maximumWeight;
@@ -40,15 +40,15 @@ public class Package {
         return Collections.unmodifiableCollection(things);
     }
 
-    public boolean putThing(Thing thingToPut) {
+    public void putThing(Thing thingToPut) {
         final float addedWeight = getCurrentWeight() + thingToPut.getWeight();
 
         if (thingToPut.getWeight() > getMaximumWeight() || addedWeight > getMaximumWeight()) {
-            return false;
+            return;
         }
 
         this.currentWeight = addedWeight;
-        return this.things.add(thingToPut);
+        this.things.add(thingToPut);
     }
 
     @Override

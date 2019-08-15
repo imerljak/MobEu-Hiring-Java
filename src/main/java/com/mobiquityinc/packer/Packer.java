@@ -24,10 +24,10 @@ public class Packer {
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
 
-                final String[] splittedLine = line.split("\\s:\\s");
+                final String[] splitLine = line.split("\\s:\\s");
 
-                final Package pack = PackageBuilder.build(splittedLine[0]);
-                addThingsTo(pack, splittedLine[1]);
+                final Package pack = PackageBuilder.build(splitLine[0]);
+                addThingsTo(pack, splitLine[1]);
 
                 packages.add(pack);
             }
@@ -39,8 +39,8 @@ public class Packer {
         return packages.stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 
-    private static void addThingsTo(Package pack, String stringifiedThings) throws APIException {
-        ThingBuilder.build(stringifiedThings.split("\\s"))
+    private static void addThingsTo(Package pack, String stringThing) throws APIException {
+        ThingBuilder.build(stringThing.split("\\s"))
                 .stream()
                 .sorted(Comparator.comparing(Thing::getPrice).reversed().thenComparing(Thing::getWeight))
                 .forEach(pack::putThing);

@@ -16,33 +16,32 @@ import com.mobiquityinc.exception.APIException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  * PackerTest
  */
-public class PackerTest {
+class PackerTest {
 
     @Test
-    public void shouldThrowIfFileNotExists() {
-        assertThrows(APIException.class, () -> Packer.pack("nonexistant_input.txt"));
+    void shouldThrowIfFileNotExists() {
+        assertThrows(APIException.class, () -> Packer.pack("invalid_input.txt"));
     }
 
     @Test
-    public void shouldNotThrowIfFileExists() {
+    void shouldNotThrowIfFileExists() {
         assertDoesNotThrow(() -> Packer.pack(getAbsoluteResourcePath("test_input1.txt")));
     }
 
     @Test
-    public void shouldNotReturnNull() throws FileNotFoundException, APIException, URISyntaxException {
+    void shouldNotReturnNull() throws FileNotFoundException, APIException, URISyntaxException {
         String result = Packer.pack(getAbsoluteResourcePath("test_input1.txt"));
         assertNotNull(result);
     }
 
     @ParameterizedTest
     @MethodSource("provideTestInputs")
-    public void shouldPassTestInputs(String file, String expected) throws FileNotFoundException, APIException, URISyntaxException {
+    void shouldPassTestInputs(String file, String expected) throws FileNotFoundException, APIException, URISyntaxException {
         final String actual = Packer.pack(getAbsoluteResourcePath(file));
         assertEquals(expected, actual);
     }

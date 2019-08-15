@@ -5,7 +5,7 @@ import com.mobiquityinc.packer.Thing;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ThingContraintsChecker extends AbstractConstraintChecker<Thing> {
+public class ThingConstraintsChecker extends AbstractConstraintChecker<Thing> {
 
     private static final BigDecimal ONE_HUNDRED = BigDecimal.TEN.multiply(BigDecimal.TEN);
 

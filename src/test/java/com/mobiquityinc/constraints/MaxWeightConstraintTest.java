@@ -13,7 +13,7 @@ class MaxWeightConstraintTest {
 
     @ParameterizedTest(name = "[{index}] weight: {0}, limit: {1}")
     @CsvSource({"100,99.99", "150,110", "10,5", "1000,999.99"})
-    public void shoultThrowExceptionIfConstraintIsViolated(String weight, String limit) {
+    void shouldThrowExceptionIfConstraintIsViolated(String weight, String limit) {
         final Thing thingToTest = new Thing(0, Float.valueOf(weight), BigDecimal.ZERO);
         assertThrows(APIException.class, () ->
                 new MaxWeightConstraint<>(Float.valueOf(limit), Thing::getWeight).check(thingToTest));
@@ -21,7 +21,7 @@ class MaxWeightConstraintTest {
 
     @ParameterizedTest(name = "[{index}] weight: {0}, limit: {1}")
     @CsvSource({"100,100", "150,150.01", "10,11", "1000,1000.01"})
-    public void shoultNotThrowExceptionIfConstraintIsntViolated(String weight, String limit) {
+    void shouldNotThrowExceptionIfConstraintNotViolated(String weight, String limit) {
         final Thing thingToTest = new Thing(0, 0, BigDecimal.ZERO);
         assertDoesNotThrow(() ->
                 new MaxWeightConstraint<>(Float.valueOf(limit), Thing::getWeight).check(thingToTest));

@@ -9,7 +9,7 @@ public abstract class AbstractConstraintChecker<T> implements Constraint<T> {
 
     private final List<Constraint<T>> constraints;
 
-    public AbstractConstraintChecker() {
+    AbstractConstraintChecker() {
         constraints = new ArrayList<>();
         configureConstraints(constraints);
     }
