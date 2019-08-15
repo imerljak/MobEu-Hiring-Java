@@ -40,6 +40,12 @@ public class Package {
         return Collections.unmodifiableCollection(things);
     }
 
+    /**
+     * Tries to put a thing inside this package.
+     * It will succeed if the thing being added wont overflow this package maximum weight.
+     *
+     * @param thingToPut A Thing
+     */
     public void putThing(Thing thingToPut) {
         final float addedWeight = getCurrentWeight() + thingToPut.getWeight();
 
@@ -51,6 +57,12 @@ public class Package {
         this.things.add(thingToPut);
     }
 
+    /**
+     * Returns its package things as a comma separated string.
+     * Ex: 1,2,3
+     *
+     * @return a string representation of this package things.
+     */
     @Override
     public String toString() {
         return getThings().isEmpty() ? "-" : getThings()

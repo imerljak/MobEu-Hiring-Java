@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class responsible for building Things instances based on their String representation extracted
+ * from the formatted .txt files.
+ */
 class ThingBuilder {
 
     private final static ThingConstraintsChecker constraintsChecker = new ThingConstraintsChecker();
@@ -14,6 +18,12 @@ class ThingBuilder {
     private ThingBuilder() {
     }
 
+    /**
+     * Builds many Thing's and returns a List of them..
+     * @param manyThingsString many things as a String
+     * @return List of Thing
+     * @throws APIException when some constraint for a Thing is violated.
+     */
     static List<Thing> build(String[] manyThingsString) throws APIException {
         final List<Thing> extractedThings = new ArrayList<>();
 
@@ -23,6 +33,12 @@ class ThingBuilder {
         return extractedThings;
     }
 
+    /**
+     * Builds one Thing and return it..
+     * @param thingString a 'thing' as a String
+     * @return an instance of a Thing
+     * @throws APIException when some constraint for a Thing is violated.
+     */
     static Thing build(String thingString) throws APIException {
         final String[] splitThing = thingString.replaceAll("[()€]", "").split(",");
 
