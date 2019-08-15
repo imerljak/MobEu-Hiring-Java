@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Packer</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.mobiquityinc.packer</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Packer (com.mobiquityinc.packer)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Packer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (2/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90,5%
+  </span>
+  <span class="absValue">
+    (19/ 21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.mobiquityinc.packer;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.mobiquityinc.exception.APIException;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.io.FileInputStream;
+<i>6</i>&nbsp;import java.io.IOException;
+<i>7</i>&nbsp;import java.util.ArrayList;
+<i>8</i>&nbsp;import java.util.Comparator;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;import java.util.Scanner;
+<i>11</i>&nbsp;import java.util.stream.Collectors;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public class Packer {
+<i>14</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;    private Packer() {</b>
+<b class="nc"><i>16</i>&nbsp;    }</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    public static String pack(String filePath) throws APIException {
+<b class="fc"><i>19</i>&nbsp;        final List&lt;Package&gt; packages = new ArrayList&lt;&gt;();</b>
+<i>20</i>&nbsp;
+<b class="fc"><i>21</i>&nbsp;        try (final FileInputStream fs = new FileInputStream(filePath);</b>
+<b class="fc"><i>22</i>&nbsp;             Scanner scanner = new Scanner(fs, &quot;UTF-8&quot;)) {</b>
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;            while (scanner.hasNextLine()) {</b>
+<b class="fc"><i>25</i>&nbsp;                final String line = scanner.nextLine();</b>
+<i>26</i>&nbsp;
+<b class="fc"><i>27</i>&nbsp;                final String[] splittedLine = line.split(&quot;\\s:\\s&quot;);</b>
+<i>28</i>&nbsp;
+<b class="fc"><i>29</i>&nbsp;                final Package pack = PackageBuilder.build(splittedLine[0]);</b>
+<b class="fc"><i>30</i>&nbsp;                addThingsTo(pack, splittedLine[1]);</b>
+<i>31</i>&nbsp;
+<b class="fc"><i>32</i>&nbsp;                packages.add(pack);</b>
+<b class="fc"><i>33</i>&nbsp;            }</b>
+<i>34</i>&nbsp;
+<b class="fc"><i>35</i>&nbsp;        } catch (IOException e) {</b>
+<b class="fc"><i>36</i>&nbsp;            throw new APIException(e.getMessage(), e);</b>
+<b class="fc"><i>37</i>&nbsp;        }</b>
+<i>38</i>&nbsp;
+<b class="fc"><i>39</i>&nbsp;        return packages.stream().map(Object::toString).collect(Collectors.joining(&quot;\n&quot;));</b>
+<i>40</i>&nbsp;    }
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    private static void addThingsTo(Package pack, String stringifiedThings) throws APIException {
+<b class="fc"><i>43</i>&nbsp;        ThingBuilder.build(stringifiedThings.split(&quot;\\s&quot;))</b>
+<b class="fc"><i>44</i>&nbsp;                .stream()</b>
+<b class="fc"><i>45</i>&nbsp;                .sorted(Comparator.comparing(Thing::getPrice).reversed().thenComparing(Thing::getWeight))</b>
+<b class="fc"><i>46</i>&nbsp;                .forEach(pack::putThing);</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-08-15 00:08</div>
+</div>
+</body>
+</html>
