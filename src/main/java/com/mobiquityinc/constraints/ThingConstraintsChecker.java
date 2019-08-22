@@ -7,12 +7,13 @@ import java.util.List;
 
 public class ThingConstraintsChecker extends AbstractConstraintChecker<Thing> {
 
-    private static final BigDecimal ONE_HUNDRED = BigDecimal.TEN.multiply(BigDecimal.TEN);
+    private static final BigDecimal MAX_PRICE = BigDecimal.TEN.multiply(BigDecimal.TEN);
+    private static final Float MAX_WEIGHT = 100f;
 
     @Override
     protected void configureConstraints(List<Constraint<Thing>> constraints) {
-        constraints.add(new MaxPriceConstraint<>(ONE_HUNDRED, Thing::getPrice));
-        constraints.add(new MaxWeightConstraint<>(100.00f, Thing::getWeight));
+        constraints.add(new MaxPriceConstraint<>(MAX_PRICE, Thing::getPrice));
+        constraints.add(new MaxWeightConstraint<>(MAX_WEIGHT, Thing::getWeight));
     }
 
 }
