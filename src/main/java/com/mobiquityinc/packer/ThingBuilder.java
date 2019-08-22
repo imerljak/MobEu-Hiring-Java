@@ -13,13 +13,14 @@ import java.util.List;
  */
 class ThingBuilder {
 
-    private final static ThingConstraintsChecker constraintsChecker = new ThingConstraintsChecker();
+    private static final ThingConstraintsChecker constraintsChecker = new ThingConstraintsChecker();
 
     private ThingBuilder() {
     }
 
     /**
      * Builds many Thing's and returns a List of them..
+     *
      * @param manyThingsString many things as a String
      * @return List of Thing
      * @throws APIException when some constraint for a Thing is violated.
@@ -35,6 +36,7 @@ class ThingBuilder {
 
     /**
      * Builds one Thing and return it..
+     *
      * @param thingString a 'thing' as a String
      * @return an instance of a Thing
      * @throws APIException when some constraint for a Thing is violated.
@@ -42,8 +44,8 @@ class ThingBuilder {
     static Thing build(String thingString) throws APIException {
         final String[] splitThing = thingString.replaceAll("[()€]", "").split(",");
 
-        final Integer index = Integer.valueOf(splitThing[0]);
-        final Float weight = Float.valueOf(splitThing[1]);
+        final Integer index = Integer.parseInt(splitThing[0]);
+        final Float weight = Float.parseFloat(splitThing[1]);
         final BigDecimal price = new BigDecimal(splitThing[2]);
 
         final Thing extractedThing = new Thing(index, weight, price);

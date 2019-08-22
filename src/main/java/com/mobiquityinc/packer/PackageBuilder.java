@@ -20,7 +20,7 @@ class PackageBuilder {
      * @throws APIException when a Package constraint is violated.
      */
     static Package build(String stringWeight) throws APIException {
-        final float packageWeight = Float.valueOf(stringWeight);
+        final float packageWeight = Float.parseFloat(stringWeight);
         final Package aPackage = new Package(packageWeight);
 
         constraintsChecker.check(aPackage);
