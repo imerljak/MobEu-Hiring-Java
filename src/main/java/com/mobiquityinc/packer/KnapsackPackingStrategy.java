@@ -4,21 +4,23 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * V[i][w] = max(V[i-1][w], V[i-1][w - w[1]] + P[i]);
+ * This class implements a dynamic programming solution of the knapsack algorithm.
+ * To find out the selected items from the solution table we backtrack it from the last value,
+ * checking if its included in the upper row, if not, pick it and go left by the i:th items weight,
+ * to find out the where the next item value was added until the end.
+ *
  */
 public class KnapsackPackingStrategy implements PackingStrategy {
-
-    private static final int MAXIMUM_WEIGHT = 100;
 
     @Override
     public void pack(Package aPackage, Collection<Thing> thingsToPack) {
 
-        int maxWeight = normalizeWeight(aPackage.getMaximumWeight());
+        int maxWeight = floatToInt(aPackage.getMaximumWeight());
 
-        knapsack(maxWeight, thingsToPack.toArray(new Thing[]{})).forEach(aPackage::putThing);
+        dpKnapsack(maxWeight, thingsToPack.toArray(new Thing[]{})).forEach(aPackage::putThing);
     }
 
-    public List<Thing> knapsack(int capacity, Thing[] things) {
+    private List<Thing> dpKnapsack(int capacity, Thing[] things) {
 
         int itemsCount = things.length;
 
@@ -31,10 +33,15 @@ public class KnapsackPackingStrategy implements PackingStrategy {
 
             for (int w = 0; w <= capacity; w++) {
 
+                // Fill with ZERO first line & row to serve as reference when comparing.
                 if (i == 0 || w == 0) {
                     table[i][w] = BigDecimal.ZERO;
-                } else if (normalizeWeight(things[i - 1].getWeight()) <= w) {
-                    table[i][w] = things[i - 1].getPrice().add(table[i - 1][w - normalizeWeight(things[i - 1].getWeight())]).max(table[i - 1][w]);
+
+                } else if (floatToInt(things[i - 1].getWeight()) <= w) {
+
+                    /*T[i][w] = max(v[i-1] + T[i-1][w - w[i-1], w[i-1])*/
+                    table[i][w] = things[i - 1].getPrice().add(table[i - 1][w - floatToInt(things[i - 1].getWeight())]).max(table[i - 1][w]);
+
                 } else {
                     table[i][w] = table[i - 1][w];
                 }
@@ -51,21 +58,19 @@ public class KnapsackPackingStrategy implements PackingStrategy {
 
         for (int i = things.length; i > 0 && temp > 0; i--) {
 
-            System.out.println(Arrays.toString(table[i]));
-
+            // if value on top is equal to this, go to previous line.
             if (table[i][temp].equals(table[i - 1][temp])) continue;
 
+            // found the item relative to the selected item, add it to the result list.
             selectedThings.add(things[i - 1]);
 
-            temp -= normalizeWeight(things[i - 1].getWeight());
+            temp -= floatToInt(things[i - 1].getWeight());
         }
-
-        System.out.println("-----------------------");
 
         return selectedThings;
     }
 
-    private int normalizeWeight(float floatWeight) {
+    private int floatToInt(float floatWeight) {
         return (int) (floatWeight);
     }
 
