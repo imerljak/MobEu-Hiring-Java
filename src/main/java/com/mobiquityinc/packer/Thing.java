@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Thing
  */
-public class Thing {
+public class Thing implements Comparable<Thing> {
 
     private final int index;
     private final float weight;
@@ -38,4 +38,8 @@ public class Thing {
         return price;
     }
 
+    @Override
+    public int compareTo(Thing other) {
+        return Integer.compare(this.index, other.index);
+    }
 }

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class Packer {
 
-    private static final PackingStrategy PACKING_STRATEGY = new SimpleSortPackingStrategy();
+    private static final PackingStrategy PACKING_STRATEGY = new KnapsackPackingStrategy();
 
     private Packer() {
     }

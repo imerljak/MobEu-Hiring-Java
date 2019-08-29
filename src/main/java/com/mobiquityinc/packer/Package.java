@@ -1,9 +1,9 @@
 package com.mobiquityinc.packer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -13,7 +13,7 @@ public class Package {
     private final float maximumWeight;
     private float currentWeight = 0;
 
-    private final List<Thing> things = new ArrayList<>();
+    private final Set<Thing> things = new TreeSet<>();
 
     public Package(float maximumWeight) {
         this.maximumWeight = maximumWeight;
@@ -66,9 +66,9 @@ public class Package {
     @Override
     public String toString() {
         return getThings().isEmpty() ? "-" : getThings()
-        .parallelStream()
-        .map(Thing::getIndex)
-        .map(Object::toString)
-        .collect(Collectors.joining(","));
+                .parallelStream()
+                .map(Thing::getIndex)
+                .map(Object::toString)
+                .collect(Collectors.joining(","));
     }
 }
