@@ -49,7 +49,7 @@ class PackerTest {
     private static Stream<Arguments> provideTestInputs() {
         return Stream.of(
                 Arguments.of("test_input1.txt", "4\n-\n2,7\n8,9"),
-                Arguments.of("test_input2.txt", "2\n1\n2,4\n9")
+                Arguments.of("test_input2.txt", "1,4\n1\n2,4\n9")
         );
     }
 
